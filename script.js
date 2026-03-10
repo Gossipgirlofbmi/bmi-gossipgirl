@@ -1,5 +1,5 @@
 // Configuration - Update this with your deployed backend URL
-const BACKEND_URL = 'http://localhost:3000'; // Change this when deployed
+const BACKEND_URL = 'https://bmi-gossip-backend-production.up.railway.app'; // Railway backend URL
 
 // DOM Elements
 const gossipForm = document.getElementById('gossipForm');
