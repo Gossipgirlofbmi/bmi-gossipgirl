@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOSSIP GIRL - BMI Gossip</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="site-title">GOSSIP GIRL</h1>
+            <p class="tagline">Spilling the tea, one secret at a time</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Submit Form -->
+            <section class="submit-section">
+                <h2>Share Your Gossip</h2>
+                <form id="gossipForm" class="gossip-form">
+                    <textarea 
+                        id="gossipText" 
+                        placeholder="What's the tea? Share your anonymous gossip..."
+                        required
+                        maxlength="500"
+                    ></textarea>
+                    <div class="form-controls">
+                        <label for="imageUpload" class="upload-label">
+                            <span class="upload-icon">📷</span>
+                            <span class="upload-text">Add Image (Optional)</span>
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                        <button type="submit" class="submit-btn">Spill the Tea</button>
+                    </div>
+                    <div id="imagePreview" class="image-preview"></div>
+                </form>
+            </section>
+
+            <!-- Trending Topics -->
+            <section class="trending-section">
+                <h2>Trending Topics</h2>
+                <div class="trending-tags">
+                    <span class="trending-tag">#CafeteriaDrama</span>
+                    <span class="trending-tag">#LibrarySpotted</span>
+                    <span class="trending-tag">#HallwayHappenings</span>
+                    <span class="trending-tag">#StudyGroupSecrets</span>
+                    <span class="trending-tag">#DormRoomDrama</span>
+                    <span class="trending-tag">#CampusCrush</span>
+                </div>
+            </section>
+
+            <!-- Posts Feed -->
+            <section class="feed-section">
+                <h2>Latest Gossip</h2>
+                <div id="postsFeed" class="posts-feed">
+                    <!-- Posts will be dynamically loaded here -->
+                    <div class="loading">Loading gossip...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Notification Popup -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <span class="notification-icon">✨</span>
+            <span class="notification-text">Your gossip has been shared!</span>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
