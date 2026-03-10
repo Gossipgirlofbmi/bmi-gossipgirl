@@ -1,5 +1,5 @@
 // Configuration - Update this with your deployed backend URL
-const BACKEND_URL = 'https://bmi-gossip-backend-production.up.railway.app'; // Railway backend URL
+const BACKEND_URL = 'https://bmi-gossip-backend.onrender.com'; // Your backend URL - will work once deployed
 
 // DOM Elements
 const gossipForm = document.getElementById('gossipForm');
@@ -95,10 +95,39 @@ async function handleSubmit(e) {
         
     } catch (error) {
         console.error('Error submitting post:', error);
-        showError(error.message || 'Failed to submit gossip. Please try again.');
+        // If backend is not available, show demo success
+        if (error.message.includes('fetch')) {
+            showNotification('Demo: Your gossip would be submitted! Backend deployment needed. 🚀');
+            // Add the post to mock data
+            addMockPost(text);
+        } else {
+            showError(error.message || 'Failed to submit gossip. Please try again.');
+        }
     } finally {
         showLoading(false);
     }
+}
+
+// Add a mock post when backend is not available
+function addMockPost(text) {
+    const newPost = {
+        id: Date.now().toString(),
+        text: text,
+        timestamp: new Date().toISOString(),
+        badge: generateBadge(),
+        imagePath: null
+    };
+    
+    // Get current posts or create empty array
+    const currentPosts = document.querySelectorAll('.post-card');
+    if (currentPosts.length === 0) {
+        renderMockPosts();
+    }
+    
+    // Add new post at the beginning
+    const postsFeed = document.getElementById('postsFeed');
+    const newPostHTML = createPostHTML(newPost);
+    postsFeed.insertAdjacentHTML('afterbegin', newPostHTML);
 }
 
 // Handle image selection
@@ -154,12 +183,31 @@ async function loadPosts() {
         
     } catch (error) {
         console.error('Error loading posts:', error);
-        postsFeed.innerHTML = `
-            <div class="error">
-                Failed to load posts. Please refresh the page.
-            </div>
-        `;
+        // Fallback to mock data if backend is not available
+        renderMockPosts();
     }
+}
+
+// Mock posts for testing when backend is not available
+function renderMockPosts() {
+    const mockPosts = [
+        {
+            id: '1',
+            text: 'Welcome to BMI Gossip! This is a demo post. Your real posts will appear here once the backend is deployed! 🌸',
+            timestamp: new Date().toISOString(),
+            badge: 'Demo',
+            imagePath: null
+        },
+        {
+            id: '2', 
+            text: 'Spotted: Someone studying in the library at 2AM! #LibrarySpotted 📚',
+            timestamp: new Date(Date.now() - 3600000).toISOString(),
+            badge: 'Anonymous',
+            imagePath: null
+        }
+    ];
+    
+    renderPosts(mockPosts);
 }
 
 // Render posts in the feed
